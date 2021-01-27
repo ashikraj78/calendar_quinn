@@ -267,3 +267,16 @@ main {
   flex-basis: calc(100% / 7);
   width: calc(100% / 7);
 }
+.modal {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+  padding-top: 3rem;
+  top: 11.5%;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  margin: 0 auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}

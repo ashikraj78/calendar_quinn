@@ -15,16 +15,15 @@ import Dialog from "@reach/dialog";
 function Calendar() {
   let [currentMonth, setCurrentMonth] = useState(new Date());
   let [displayCard, setDisplayCard] = useState(null);
-  console.log(displayCard, "find if post is there ");
+  // console.log(displayCard, "find if post is there ");
   let [data, setData] = useState(false);
-  const [showDialog, setShowDialog] = useState(false);
-  const open = () => setShowDialog(true);
-  const close = () => setShowDialog(false);
+  const close = () => setDisplayCard(null);
 
   useEffect(() => {
     const url = "http://quinncareapi-dev.us-east-2.elasticbeanstalk.com/graph";
+    const proxyURl = "https://cors-anywhere.herokuapp.com/";
 
-    fetch(url, {
+    fetch(proxyURl + url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -116,18 +115,15 @@ function Calendar() {
               data={data}
               setDisplayCard={setDisplayCard}
             />
-            {displayCard ? (
-              <Dialog isOpen={showDialog} onDismiss={close} className="modal">
-                <DisplayCard
-                  displayCard={displayCard}
-                  setDisplayCard={setDisplayCard}
-                  data={data}
-                  close={close}
-                />
-              </Dialog>
-            ) : (
-              ""
-            )}
+
+            <Dialog isOpen={!!displayCard} onDismiss={close} className="modal">
+              <DisplayCard
+                displayCard={displayCard}
+                setDisplayCard={setDisplayCard}
+                data={data}
+                close={close}
+              />
+            </Dialog>
           </div>
         );
       })}

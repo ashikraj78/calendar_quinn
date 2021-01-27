@@ -42,13 +42,12 @@ export default function RenderCells({
             format(day, "dd-MM-yyyy")
           );
         });
-
       days.push(
         <div className="col cell pt-1.5 " key={day}>
           {foundPost ? (
             <div onClick={() => handleDisplayCard(foundPost)}>
               <div className="flex justify-between px-1 ">
-                <StarRating rating={foundPost.rating} />
+                <StarRating rating={foundPost && foundPost.rating} />
                 <div className="font-bold">{formattedDate}</div>
               </div>
               <img

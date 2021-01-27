@@ -15,9 +15,8 @@ import Dialog from "@reach/dialog";
 function Calendar() {
   let [currentMonth, setCurrentMonth] = useState(new Date());
   let [displayCard, setDisplayCard] = useState(null);
-  // console.log(displayCard, "find if post is there ");
-  let [data, setData] = useState(false);
   const close = () => setDisplayCard(null);
+  let [data, setData] = useState(false);
 
   useEffect(() => {
     const url = "http://quinncareapi-dev.us-east-2.elasticbeanstalk.com/graph";
@@ -113,7 +112,6 @@ function Calendar() {
             <Dialog isOpen={!!displayCard} onDismiss={close} className="modal">
               <DisplayCard
                 displayCard={displayCard}
-                setDisplayCard={setDisplayCard}
                 data={data}
                 close={close}
               />

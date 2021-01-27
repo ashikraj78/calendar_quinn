@@ -19,6 +19,25 @@ export default function DisplayCard({ displayCard, data, close }) {
   function nextCard() {
     setCard(data[index2 - 1]);
   }
+  function renderSwitch(activity) {
+    switch (activity) {
+      case "hair cut":
+        return "Cu";
+      case "protein treatment":
+        return "Pr";
+
+      case "hair color":
+        return "HC";
+
+      case "deep conditioning":
+        return "DC";
+
+      case "clarifying":
+        return "C";
+      default:
+        return "W";
+    }
+  }
 
   return (
     <div className="bg-white  p-2 w-96 h-10/12">
@@ -43,19 +62,12 @@ export default function DisplayCard({ displayCard, data, close }) {
         <div>
           <img src={card.images[0].imageurl} alt="postPic" className="h-96" />
           <div className="flex justify-between items-center">
-            <div className="flex justify-between px-1 py-1.5 w-1/3">
-              <div className="bg-red-100 py-1 px-1.5 rounded-2xl ">
-                <p className="text-xs">W</p>
-              </div>
-              <div className="bg-red-100 py-1 px-1.5 rounded-2xl ">
-                <p className="text-xs">Dc</p>
-              </div>
-              <div className="bg-red-100 py-1 px-1.5 rounded-2xl ">
-                <p className="text-xs">Pr</p>
-              </div>
-              <div className="bg-red-100 py-1 px-1.5 rounded-2xl ">
-                <p className="text-xs">C</p>
-              </div>
+            <div className="flex  px-1 py-1.5 w-1/3">
+              {card.typeofday.map((activity) => (
+                <div className="bg-red-100 py-1 px-1.5 rounded-2xl mr-1 ">
+                  <p className="text-xs">{renderSwitch(activity)}</p>
+                </div>
+              ))}
             </div>
             <StarRating rating={card.rating} />
           </div>

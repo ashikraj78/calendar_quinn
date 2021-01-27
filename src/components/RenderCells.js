@@ -27,6 +27,25 @@ export default function RenderCells({
   let days = [];
   let day = startDate;
   let formattedDate = "";
+  function renderSwitch(activity) {
+    switch (activity) {
+      case "hair cut":
+        return "Cu";
+      case "protein treatment":
+        return "Pr";
+
+      case "hair color":
+        return "HC";
+
+      case "deep conditioning":
+        return "DC";
+
+      case "clarifying":
+        return "C";
+      default:
+        return "W";
+    }
+  }
 
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
@@ -55,19 +74,12 @@ export default function RenderCells({
                 src={foundPost.images[0].imageurl}
                 alt="postedImage"
               />
-              <div className="flex justify-between px-1 py-1.5">
-                <div className="bg-red-100 py-1 px-1.5 rounded-2xl ">
-                  <p className="text-xs">W</p>
-                </div>
-                <div className="bg-red-100 py-1 px-1.5 rounded-2xl ">
-                  <p className="text-xs">Dc</p>
-                </div>
-                <div className="bg-red-100 py-1 px-1.5 rounded-2xl ">
-                  <p className="text-xs">Pr</p>
-                </div>
-                <div className="bg-red-100 py-1 px-1.5 rounded-2xl ">
-                  <p className="text-xs">C</p>
-                </div>
+              <div className="flex px-1 py-1.5">
+                {foundPost.typeofday.map((activity) => (
+                  <div className="bg-red-100 py-1 px-1.5 rounded-2xl mr-1 ">
+                    <p className="text-xs">{renderSwitch(activity)}</p>
+                  </div>
+                ))}
               </div>
             </div>
           ) : (

@@ -75,8 +75,6 @@ function Calendar() {
   };
 
   const handleScroll = (event) => {
-    event.target, event.target.scrollHeight, event.target.scrollTop;
-
     if (event.target.scrollTop === 0) {
       setCurrentMonth(subMonths(currentMonth, 1));
 

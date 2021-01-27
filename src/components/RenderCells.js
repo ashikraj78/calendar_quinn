@@ -8,8 +8,6 @@ import {
   format,
 } from "date-fns";
 import StarRating from "./StarRating";
-import CardDisplay from "./DisplayCard";
-import postImage from "../images/post.jpg";
 
 export default function RenderCells({
   currentMonth,
@@ -17,16 +15,6 @@ export default function RenderCells({
   data,
   setDisplayCard,
 }) {
-  const monthStart = startOfMonth(currentMonth);
-  const monthEnd = endOfMonth(monthStart);
-  const startDate = startOfWeek(monthStart);
-  const endDate = endOfWeek(monthEnd);
-
-  const dateFormat = "d";
-  const rows = [];
-  let days = [];
-  let day = startDate;
-  let formattedDate = "";
   function renderSwitch(activity) {
     switch (activity) {
       case "hair cut":
@@ -47,11 +35,20 @@ export default function RenderCells({
     }
   }
 
+  const monthStart = startOfMonth(currentMonth);
+  const monthEnd = endOfMonth(monthStart);
+  const startDate = startOfWeek(monthStart);
+  const endDate = endOfWeek(monthEnd);
+
+  const dateFormat = "d";
+  const rows = [];
+  let days = [];
+  let day = startDate;
+  let formattedDate = "";
+
   while (day <= endDate) {
     for (let i = 0; i < 7; i++) {
       formattedDate = format(day, dateFormat);
-      let dateCheck = "yyyy-MM-dd";
-      let fdate = format(day, dateCheck);
 
       const foundPost =
         data &&
@@ -99,5 +96,12 @@ export default function RenderCells({
     );
     days = [];
   }
-  return <div className="body">{rows}</div>;
+  return (
+    <div className="relative">
+      <div className="absolute left-0 top-10  z-10 bg-gray-100 inline-block ">
+        {format(new Date(currentMonth), "MMMM-yyyy")}
+      </div>
+      <div className="body">{rows}</div>
+    </div>
+  );
 }

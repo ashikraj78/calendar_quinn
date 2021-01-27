@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  startOfWeek,
-  addMonths,
-  subMonths,
-  addDays,
-  format,
-  sub,
-} from "date-fns";
+import { startOfWeek, addMonths, subMonths, addDays, format } from "date-fns";
 import RenderCells from "./RenderCells";
 import requestObject from "../requestObject.json";
 import DisplayCard from "./DisplayCard";
@@ -38,16 +31,19 @@ function Calendar() {
   function renderHeader(month) {
     const dateFormat = "MMMM-yyyy";
     return (
-      <div className="header row flex-middle">
-        {/* <div className="col col-start" onClick={prevMonth}>
-          <div className="icon">chevron_left</div>
-        </div> */}
-        <div className="col col-center">
-          <span>{format(month, dateFormat)}</span>
-        </div>
-        {/* <div className="col col-end" onClick={nextMonth}>
-          <div className="icon">chevron_right</div>
-        </div> */}
+      <div
+        className="header row flex-middle fixed top-0 left-72 right-0 z-10"
+        style={{ position: "sticky", top: "0px", background: "black" }}
+      >
+        <span>{format(month, dateFormat)}</span>
+      </div>
+    );
+  }
+  function renderMonth(month) {
+    const dateFormat = "MMMM-yyyy";
+    return (
+      <div className="header row flex-middle top-0 left-0 right-0 z-10">
+        <span>{format(month, dateFormat)}</span>
       </div>
     );
   }
@@ -58,20 +54,25 @@ function Calendar() {
     let startDate = startOfWeek(month);
     for (let i = 0; i < 7; i++) {
       days.push(
-        <div className="col col-center" key={i}>
+        <div className="col col-center  " key={i}>
           {format(addDays(startDate, i), dateFormat)}
         </div>
       );
     }
-    return <div className="days row">{days}</div>;
+    return (
+      <div className="days row sticky  top-0 left-0 right-0 z-20 bg-gray-100">
+        {renderMonth(month)}
+        {days}
+      </div>
+    );
   }
 
-  let nextMonth = () => {
-    setCurrentMonth(addMonths(currentMonth, 1));
-  };
-  let prevMonth = () => {
-    setCurrentMonth(subMonths(currentMonth, 1));
-  };
+  // let nextMonth = () => {
+  //   setCurrentMonth(addMonths(currentMonth, 1));
+  // };
+  // let prevMonth = () => {
+  //   setCurrentMonth(subMonths(currentMonth, 1));
+  // };
 
   const handleScroll = (event) => {
     if (event.target.scrollTop === 0) {
@@ -92,16 +93,20 @@ function Calendar() {
     <div
       onScroll={handleScroll}
       style={{ overflowY: "scroll", height: "100vh" }}
+      className="relative"
     >
+      {/* {renderHeader(currentMonth)} */}
+      {renderDays(currentMonth)}
+
       {[
-        subMonths(currentMonth, 1),
+        // subMonths(currentMonth, 1),
         currentMonth,
-        addMonths(currentMonth, 1),
+        // addMonths(currentMonth, 1),
       ].map((month) => {
         return (
-          <div className="calendar">
-            {renderHeader(month)}
-            {renderDays(month)}
+          <div className="calendar ">
+            {/* {renderMonth(month)} */}
+
             <RenderCells
               currentMonth={month}
               setCurrentMonth={setCurrentMonth}

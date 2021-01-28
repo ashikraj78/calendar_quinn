@@ -31,17 +31,6 @@ function Calendar() {
       });
   }, []);
 
-  function renderHeader(month) {
-    const dateFormat = "MMMM-yyyy";
-    return (
-      <div
-        className="header row flex-middle fixed top-0 left-72 right-0 z-10 "
-        // style={{ position: "sticky", top: "0px", background: "black" }}
-      >
-        <span>{format(month, dateFormat)}</span>
-      </div>
-    );
-  }
   function renderMonth(month) {
     const dateFormat = "MMMM-yyyy";
     return (
@@ -79,15 +68,18 @@ function Calendar() {
   }
 
   const handleScroll = (event) => {
-    // if (event.target.scrollTop === 0) {
-    //   setCurrentMonth(subMonths(currentMonth, 1));
-    //   return;
-    // }
-    // if (
-    //   event.target.scrollHeight - event.target.scrollTop ===
-    //   event.target.clientHeight
-    // ) {
-    //   setCurrentMonth(addMonths(currentMonth, 1));
+    if (event.target.scrollTop === 0) {
+      setCurrentMonth(subMonths(currentMonth, 1));
+      return;
+    }
+    if (
+      event.target.scrollHeight - event.target.scrollTop ===
+      event.target.clientHeight
+    ) {
+      setCurrentMonth(addMonths(currentMonth, 1));
+    }
+    // else {
+    //   refCalendar.current.scrollTo(0, 100);
     // }
   };
 
@@ -98,7 +90,6 @@ function Calendar() {
       className="relative"
       ref={refCalendar}
     >
-      {/* {renderHeader(currentMonth)} */}
       {renderDays(currentMonth)}
 
       {[

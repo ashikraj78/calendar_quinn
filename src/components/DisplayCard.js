@@ -40,7 +40,7 @@ export default function DisplayCard({ displayCard, data, close }) {
   }
 
   return (
-    <div className="bg-white  p-2 w-96 h-10/12">
+    <div className="bg-white p-1 w-96 ">
       <button onClick={close}>
         <VisuallyHidden>Close</VisuallyHidden>
         <span aria-hidden>×</span>

@@ -58,29 +58,44 @@ export default function RenderCells({
             format(day, "dd-MM-yyyy")
           );
         });
+
+      const sameDate =
+        format(new Date(), "dd-MM-yyyy") === format(day, "dd-MM-yyyy");
       days.push(
-        <div className="col cell pt-1.5 " key={day}>
+        <div className="col cell  " key={day}>
           {foundPost ? (
             <div onClick={() => handleDisplayCard(foundPost)}>
-              <div className="flex justify-between px-1 ">
+              <div className="flex justify-between items-center px-1 ">
                 <StarRating rating={foundPost && foundPost.rating} />
                 <div className="font-bold">{formattedDate}</div>
               </div>
               <img
-                className="h-24"
+                className="h-24 w-full"
                 src={foundPost.images[0].imageurl}
                 alt="postedImage"
               />
               <div className="flex px-1 py-1.5">
                 {foundPost.typeofday.map((activity) => (
-                  <div className="bg-red-100 py-1 px-1.5 rounded-2xl mr-1 ">
+                  <div className="bg-red-100 py-.5 px-1 rounded-2xl mr-1 ">
                     <p className="text-xs">{renderSwitch(activity)}</p>
                   </div>
                 ))}
               </div>
             </div>
           ) : (
-            <div className="font-bold flex justify-center">{formattedDate}</div>
+            <div>
+              {sameDate ? (
+                <div className="font-bold flex justify-center ">
+                  <p className="bg-red-500 px-1 rounded-2xl text-gray-100">
+                    {formattedDate}
+                  </p>
+                </div>
+              ) : (
+                <div className="font-bold flex justify-center">
+                  {formattedDate}
+                </div>
+              )}
+            </div>
           )}
         </div>
       );
